@@ -34,7 +34,7 @@ class AnalyticsController extends Controller
             ->whereNotNull('product_id')
             ->selectRaw('product_id, action, count(*) as total')
             ->groupBy('product_id', 'action')
-            ->with('product:id,name,images')
+            ->with('product:id,name,brand,images')
             ->get()
             ->groupBy('product_id')
             ->map(fn($actions) => [

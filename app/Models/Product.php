@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = [
-        'user_id', 'name', 'brand', 'description', 'price',
+        'user_id', 'name', 'brand', 'description', 'price', 'promotional_price',
         'benefits', 'preparation', 'images', 'background_image', 'ingredients', 'active',
     ];
 
@@ -18,6 +18,7 @@ class Product extends Model
         'ingredients' => 'array',
         'active' => 'boolean',
         'price' => 'decimal:2',
+        'promotional_price' => 'decimal:2',
     ];
 
     public function user()

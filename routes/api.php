@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CatalogController;
 use App\Http\Controllers\Api\AnalyticsController;
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\PublicCatalogController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,7 +14,7 @@ Route::post('/c/{slug}/register', [PublicCatalogController::class, 'register']);
 Route::post('/c/{slug}/track', [PublicCatalogController::class, 'track']);
 Route::get('/c/{slug}/actions', [PublicCatalogController::class, 'actions']);
 
-Route::post('/register', [AuthController::class, 'register']);
+// Route::post('/register', [AuthController::class, 'register']); // Deshabilitado — solo superadmin crea usuarios
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -27,6 +28,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('catalogs', CatalogController::class);
     Route::post('catalogs/{catalog}/publish', [CatalogController::class, 'publish']);
     Route::post('catalogs/{catalog}/products', [CatalogController::class, 'syncProducts']);
+
+    Route::apiResource('users', UserController::class)->except(['show']);
 
     Route::get('analytics', [AnalyticsController::class, 'index']);
     Route::get('analytics/catalogs', [AnalyticsController::class, 'catalogs']);

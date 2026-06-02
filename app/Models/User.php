@@ -23,6 +23,7 @@ class User extends Authenticatable
         'email',
         'password',
         'whatsapp_number',
+        'role',
     ];
 
     /**
@@ -46,6 +47,11 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->role === 'superadmin';
     }
 
     public function products()
