@@ -37,7 +37,7 @@ class PublicCatalogController extends Controller
             'description' => $catalog->description,
             'slug'        => $catalog->slug,
             'owner'       => ['whatsapp_number' => $catalog->user->whatsapp_number],
-            'products'    => $catalog->products()->orderBy('catalog_products.order')->get(),
+            'products'    => $catalog->products()->where('active', true)->orderBy('catalog_products.order')->get(),
         ]);
     }
 
