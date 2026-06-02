@@ -85,9 +85,10 @@ class ProductController extends Controller
         $file = $request->file('image');
         $image = ImageManager::gd()->read($file->getContent())->scaleDown(width: 1200);
         $filename = 'products/' . uniqid() . '.jpg';
-        Storage::disk('public')->put($filename, $image->toJpeg(85));
+        $disk = config('filesystems.default') === 's3' ? 's3' : 'public';
+        Storage::disk($disk)->put($filename, $image->toJpeg(85));
 
-        return response()->json(['url' => Storage::url($filename)]);
+        return response()->json(['url' => Storage::disk($disk)->url($filename)]);
     }
 
     private function authorize($user, Product $product)
